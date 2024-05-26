@@ -1,18 +1,3 @@
-// Hàm để lấy CSRF token từ cookie
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 // Lấy đối tượng button Phát
 const playAudioButton = document.getElementById('playAudioButton');
 // Lấy đối tượng prev_chapter
@@ -107,13 +92,10 @@ function fetchText() {
     showLoader();
     prev_chapterButton.setAttribute('disabled', true);
     next_chapterButton.setAttribute('disabled', true);
-    // Lấy CSRF token từ cookie
-    const csrftoken = getCookie('csrftoken');
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken // Bao gồm CSRF token trong headers
         },
         body: JSON.stringify(requestBody)
     })
@@ -150,13 +132,12 @@ function playAudio() {
     }
     showLoader();
     const url = 'http://letam.myftp.org:8686/api/tts_api/getaudiostream/';
-    const csrftoken = getCookie('csrftoken'); // Lấy CSRF token từ cookie
     // Mảng để lưu trữ tất cả các Promise fetch audio
     audioPromises = [];
     // Duyệt qua các đoạn văn bản từ currentIndex đến cuối văn bản
     for (let i = currentIndex; i < textData.length; i++) {
         // Thêm Promise của mỗi đoạn văn bản vào mảng audioPromises
-        audioPromises.push(fetchAudio(url, csrftoken, textData[i]));
+        audioPromises.push(fetchAudio(url, textData[i]));
     }
     // Khởi tạo một hàm async để xử lý việc fetch và phát audio
     async function playAudioSequentially(audioPromises) {
@@ -184,13 +165,12 @@ function playAudio() {
     });
 }
 // Hàm để fetch audio từ API
-function fetchAudio(url, csrftoken, text) {
+function fetchAudio(url, text) {
     return new Promise((resolve, reject) => {
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken // Bao gồm CSRF token trong headers
             },
             body: JSON.stringify({
                 text: text,
@@ -236,7 +216,7 @@ function updatePrevNextChapUrl(chap) {
     location.reload();
 }
 
-urlInput.addEventListener("input", fetchText);
 window.onload = function () {
+    urlInput.addEventListener("input", fetchText);
     fetchText();
 };

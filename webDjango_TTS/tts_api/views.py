@@ -60,33 +60,11 @@ class TTS_API_Get_Text(APIView):
             return JsonResponse({'error': str(e)}, status=400)
 
 
-class TTS_API_Get_Audio(APIView):
-    async def generate_audio(self, text, voice, output_file):
-        communicate = edge_tts.Communicate(text, voice)
-        await communicate.save(output_file)
-
-    def post(self, request, format=None):
-        # Nhận dữ liệu từ request
-        text = str(request.query_params['text'])
-        voice = str(request.query_params['voice'])
-        output_file = str(request.query_params['output_file'])
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            loop.run_until_complete(
-                self.generate_audio(text, voice, output_file))
-        finally:
-            loop.close()
-        return JsonResponse({'message': f'Audio file {output_file} has been generated.'})
-
-
 async def generate_audio_stream(text, voice):
     communicate = edge_tts.Communicate(text, voice, pitch="+5Hz")
     async for chunk in communicate.stream():
         if chunk["type"] == "audio":
             yield chunk["data"]
-        # elif chunk["type"] == "WordBoundary":
-        #     print(f"WordBoundary: {chunk}")
 
 
 class TTS_API_Get_Audio_Stream(APIView):
