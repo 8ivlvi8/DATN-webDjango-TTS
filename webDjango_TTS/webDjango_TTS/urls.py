@@ -2,7 +2,7 @@
 URL configuration for webDjango_TTS project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from web import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
-    path('', include('web.urls')),
     path('admin/', admin.site.urls),
+    path('', include('web.urls')),
+    path('api/', include('tts_api.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+
 ]

@@ -1,6 +1,6 @@
 .bd-placeholder-img {
 	font-size: 1.125rem;
-	text-anchor: middle;
+	text-anchor: start;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
@@ -13,7 +13,16 @@
 }
 
 /* Show it is fixed to the top */
-body {
+main {
 	min-height: 75rem;
 	padding-top: 4.5rem;
+}
+
+#inputtext {
+	width: 100%;
+	height: 200px;
+	border-radius: 0.5rem;
+	border: 3px solid #ccc;
+	margin-top: 1rem;
+	padding: 1rem;
 }

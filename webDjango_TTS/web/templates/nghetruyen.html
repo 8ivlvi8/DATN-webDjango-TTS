@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+Nghe truyện
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/nghetruyen.css' %}">
+<main style="margin: 2px 5px 0px 5px">
+	<div class="container" style="max-width: none;">
+		<div class="section">
+			<div id="chapterInfo">
+				<span id="truyen_title"> </span>
+				<br>
+				<span id="chapter_title"></span>
+				<br>
+				<span><input type="text" id="urlInput" placeholder="Dán link truyện vào đây"> </span>
+				<br>
+				<div style="display: inline-flex; align-items: center;">
+					<span style="margin-right: 5px;">Tự động phát chương tiếp theo&nbsp;</span>
+					<input type="checkbox" id="autoPlay" checked>
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<nav id="playbackSpeedControl" class="navbar">
+				<h5 id="playbackSpeedLabel">Tốc độ</h5>
+				<div>
+					<button id="decreaseSpeedButton" onclick="decreaseSpeed()">&lt;&lt;</button>
+					<span id="currentSpeed">1.0</span>
+					<button id="increaseSpeedButton" onclick="increaseSpeed()">&gt;&gt;</button>
+				</div>
+				<button id="playAudioButton" onclick="playAudio()">&nbsp;Phát&nbsp;</button>
+				<div class="loader" id="loader"></div>
+			</nav>
+			<nav id="playbackSpeedControl" class="navbar">
+				<button id="prev_chapter" onclick="updatePrevNextChapUrl('prev')">Trước</button>
+				<audio controls id="audioPlayer"></audio>
+				<button id="next_chapter" onclick="updatePrevNextChapUrl('next')">&nbsp;&nbsp;Sau&nbsp;&nbsp;</button>
+			</nav>
+		</div>
+	</div>
+	<div>
+		<iframe src="" id="iframeTruyenfull" frameborder="0" sandbox="allow-scripts allow-same-origin"></iframe>
+	</div>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+	integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="{% static 'js/nghetruyen.js' %}"></script>
+{% endblock %}

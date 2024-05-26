@@ -1,0 +1,140 @@
+.form-select {
+	width: 250px;
+}
+
+iframe {
+	width: 100%;
+	height: 74vh;
+	padding-top: 1px;
+}
+#autoPlay{
+	margin-top: 3px;
+	width: 25px;
+	height: 25px;
+}
+
+#chapterInfo {
+	margin: 0px 10px;
+	justify-content: center;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.section {
+	flex: 1;
+	min-width: 50%;
+	margin-bottom: 10px;
+}
+
+/* Điều chỉnh layout cho màn hình nhỏ hơn 768px (điện thoại) */
+@media (max-width: 768px) {
+	.section {
+		min-width: 100%;
+	}
+}
+
+#urlInput {
+	width: 350px;
+}
+
+#playbackSpeedLabel {
+	font-weight: bold;
+	text-align: center;
+	margin: 0px;
+}
+
+
+#playAudioButton,
+#prev_chapter,
+#next_chapter {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 10px;
+	font-size: 18px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#fetchButton:hover {
+	background-color: #45a049;
+	/* Màu nền khi di chuột qua */
+}
+
+
+/* Chọn tốc độ phát nút bấm hiển thị giá trị trực quan */
+/* CSS cho phần chọn tốc độ phát */
+#playbackSpeedControl {
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 3px;
+	width: 100%;
+	background-color: #f9f9f9;
+	flex-wrap: nowrap;
+	margin-bottom: 5px;
+	justify-content: space-around;
+
+}
+
+#playbackSpeedControl>div {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+/* CSS cho nút giảm tốc độ và tăng tốc độ */
+#decreaseSpeedButton,
+#increaseSpeedButton {
+	padding: 0px 10px 5px 10px;
+	font-size: 25px;
+	font-weight: bold;
+	color: #333;
+	background-color: #eaeaea;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#decreaseSpeedButton:hover,
+#increaseSpeedButton:hover {
+	background-color: #ddd;
+}
+
+/* CSS cho hiển thị tốc độ hiện tại */
+#currentSpeed {
+	font-size: 18px;
+	color: #333;
+	font-weight: bold;
+	margin: 2px 20px;
+}
+
+
+/* Hiển thị loading khi ấn phát */
+/* CSS cho biểu tượng loading */
+.loader {
+	border: 5px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 5px solid #3498db;
+	width: 50px;
+	height: 50px;
+	animation: spin 2s linear infinite;
+	display: none;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
