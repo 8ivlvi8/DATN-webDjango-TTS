@@ -84,7 +84,7 @@ let next_chap_url = ''; // Biến lưu trữ URL của chương sau
 function fetchText() {
     audioPlayer.pause();
     updateIframeSrc();
-    const url = 'http://letam.myftp.org:8686/api/tts_api/gettext/';
+    const url = '/api/tts_api/gettext/';
     const requestBody = {
         url: urlInput.value,
         element: 'chapter-c'
@@ -131,7 +131,7 @@ function playAudio() {
         return;
     }
     showLoader();
-    const url = 'http://letam.myftp.org:8686/api/tts_api/getaudiostream/';
+    const url = '/api/tts_api/getaudiostream/';
     // Mảng để lưu trữ tất cả các Promise fetch audio
     audioPromises = [];
     // Duyệt qua các đoạn văn bản từ currentIndex đến cuối văn bản
@@ -215,8 +215,8 @@ function updatePrevNextChapUrl(chap) {
     updateStoredUrl();
     location.reload();
 }
+urlInput.addEventListener("input", fetchText);
 
 window.onload = function () {
-    urlInput.addEventListener("input", fetchText);
     fetchText();
 };

@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 import requests
 from bs4 import BeautifulSoup
 import edge_tts
-import asyncio
 
 
 def get_text_by_link_and_element(link, element):
@@ -24,15 +23,11 @@ def get_text_by_link_and_element(link, element):
     doan_van_da_tach = []
     doan_van_da_tach.append(truyen_title + '. ' + chapter_title)
     temp = ""
-    i = 0
-    k = 0
+    k = 50
     for cau_van in doan_van:
         temp += cau_van + ' '
-        if i < k:
-            i += 1
-        else:
-            i = 0
-            k = 6 if k > 5 else k+1
+        if len(temp) > k:
+            k = k + 50
             doan_van_da_tach.append(temp)
             temp = ""
     if temp != "":
@@ -61,7 +56,7 @@ class TTS_API_Get_Text(APIView):
 
 
 async def generate_audio_stream(text, voice):
-    communicate = edge_tts.Communicate(text, voice, pitch="+5Hz")
+    communicate = edge_tts.Communicate(text, voice, pitch="+5Hz", volume="+80%")
     async for chunk in communicate.stream():
         if chunk["type"] == "audio":
             yield chunk["data"]
